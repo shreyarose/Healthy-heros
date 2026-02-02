@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hydrate & Earn</title>
+<title>Healthy Heroes 30-Day Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background-color: #e0f7fa;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
     margin: 0;
     padding: 0;
     text-align: center;
@@ -16,104 +17,205 @@
   header {
     background-color: #00bcd4;
     color: white;
-    padding: 20px;
-    font-size: 24px;
+    padding: 25px;
+    font-size: 28px;
     font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0,0,0,0.1);
   }
 
-  .bottle-container {
-    position: relative;
-    display: inline-block;
+  .container {
+    max-width: 600px;
     margin: 20px auto;
-  }
-
-  .bottle {
-    width: 200px;
-  }
-
-  .qr-code {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    transform: translate(-50%, -50%);
-    border: 2px solid #000;
     background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
   }
 
-  .ingredients {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 180px;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    font-size: 14px;
-    line-height: 1.3;
-    pointer-events: none;
-  }
-
-  .activities {
-    margin: 20px;
-  }
-
-  button {
-    padding: 10px 20px;
-    margin: 10px;
+  #username-form input {
+    padding: 10px;
     font-size: 16px;
+    width: 70%;
+    margin-right: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  #username-form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
   }
 
-  #score {
-    font-size: 20px;
-    margin-top: 20px;
-    color: #004d40;
+  #username-form button:hover {
+    background-color: #0097a7;
   }
 
-  .drink-name {
-    position: absolute;
-    top: 10px;
-    width: 100%;
+  .challenge-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+  }
+
+  .challenge-list li {
+    background-color: #e0f2f1;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+  }
+
+  .challenge-list li.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+    background-color: #c8e6c9;
+  }
+
+  .challenge-list button {
+    padding: 6px 12px;
+    font-size: 14px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .challenge-list button:hover {
+    background-color: #0097a7;
+  }
+
+  #score {
+    font-size: 22px;
+    margin-top: 20px;
     font-weight: bold;
+    color: #00796b;
+  }
+
+  #reward {
+    margin-top: 15px;
     font-size: 18px;
     color: #ff5722;
+    font-weight: bold;
   }
+
+  footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #555;
+  }
+
 </style>
 </head>
 <body>
 
-<header>Hydrate & Earn!</header>
+<header>Healthy Heroes 30-Day Challenge</header>
 
-<div class="bottle-container">
-  <div class="drink-name">Healthy Heroes</div>
-  <img src="bottle.png" alt="Water Bottle" class="bottle">
-  <div class="qr-code"></div>
-  <div class="ingredients">
-    Water<br>
-    Electrolytes<br>
-    Natural Flavors
+<div class="container">
+
+  <!-- Username Form -->
+  <div id="username-section">
+    <h2>Enter your username to start tracking your score:</h2>
+    <form id="username-form">
+      <input type="text" id="username" placeholder="Your username" required>
+      <button type="submit">Start</button>
+    </form>
   </div>
+
+  <!-- Main Challenge Section -->
+  <div id="challenge-section" style="display:none;">
+    <h2>Hello, <span id="display-username"></span>!</h2>
+    <p>Complete daily healthy food or drink challenges to earn points.</p>
+
+    <ul class="challenge-list" id="challenge-list">
+      <!-- Challenges will be dynamically added here -->
+    </ul>
+
+    <div id="score">Your Score: 0</div>
+    <div id="reward"></div>
+  </div>
+
 </div>
 
-<div class="activities">
-  <h3>Complete Activities to Earn Points</h3>
-  <button onclick="completeActivity(10)">Drink a glass of water (+10)</button>
-  <button onclick="completeActivity(20)">Do 10 push-ups (+20)</button>
-  <button onclick="completeActivity(15)">Eat a fruit (+15)</button>
-</div>
-
-<div id="score">Your Score: 0</div>
+<footer>Scan the QR code on your bottle to access the challenge!</footer>
 
 <script>
+  // --- Initialize ---
+  const dailyChallenges = [
+    { name: "Drink a glass of water", points: 10 },
+    { name: "Eat an apple", points: 15 },
+    { name: "Drink Healthy Heroes drink", points: 20 },
+    { name: "Do 10 push-ups", points: 20 },
+    { name: "Eat a banana", points: 15 },
+  ];
+
+  let username = '';
   let score = 0;
 
-  function completeActivity(points) {
-    score += points;
-    document.getElementById('score').innerText = "Your Score: " + score;
-    alert("You earned " + points + " points!");
+  // --- Username Form ---
+  const usernameForm = document.getElementById('username-form');
+  const usernameSection = document.getElementById('username-section');
+  const challengeSection = document.getElementById('challenge-section');
+  const displayUsername = document.getElementById('display-username');
+
+  usernameForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    username = document.getElementById('username').value.trim();
+    if(username){
+      displayUsername.textContent = username;
+      usernameSection.style.display = 'none';
+      challengeSection.style.display = 'block';
+      loadChallenges();
+    }
+  });
+
+  // --- Load Challenges ---
+  const challengeList = document.getElementById('challenge-list');
+  const scoreDisplay = document.getElementById('score');
+  const rewardDisplay = document.getElementById('reward');
+
+  function loadChallenges() {
+    dailyChallenges.forEach((challenge, index) => {
+      const li = document.createElement('li');
+      li.textContent = challenge.name;
+
+      const button = document.createElement('button');
+      button.textContent = 'Complete';
+      button.onclick = () => completeChallenge(index, li, challenge.points);
+
+      li.appendChild(button);
+      challengeList.appendChild(li);
+    });
+  }
+
+  // --- Complete Challenge ---
+  function completeChallenge(index, liElement, points) {
+    if(!liElement.classList.contains('completed')){
+      liElement.classList.add('completed');
+      score += points;
+      scoreDisplay.textContent = "Your Score: " + score;
+      checkReward();
+    }
+  }
+
+  // --- Check Rewards ---
+  function checkReward() {
+    if(score >= 100 && score < 200){
+      rewardDisplay.textContent = "🎉 Congrats! You earned 1 bottle & a healthy snack!";
+    } else if(score >= 200){
+      rewardDisplay.textContent = "🏆 Amazing! Big reward unlocked!";
+    }
   }
 </script>
 
 </body>
 </html>
+

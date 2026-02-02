@@ -1,28 +1,2 @@
-/* Ingredients in a circle around QR */
-.ingredients-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 140px;
-    height: 140px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ff5722;
-    text-align: center;
-}
 
-/* Optional: small animation to make it playful */
-.ingredients-circle span {
-    transition: transform 0.3s;
-}
-
-.ingredients-circle span:hover {
-    transform: scale(1.2);
-    color: #d84315;
 }

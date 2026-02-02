@@ -1,30 +1,95 @@
-/* Ingredients in a circle around QR */
-.ingredients-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 140px;
-    height: 140px;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    font-size: 12px;
-    font-weight: bold;
-    color: #ff5722;
-    text-align: center;
+/* General page styles */
+body {
+  font-family: 'Baloo 2', cursive;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #ffe082, #ffcc80);
+  text-align: center;
 }
 
-/* Optional: small animation to make it playful */
+header {
+  background: linear-gradient(90deg, #ff6f61, #ffb74d);
+  color: white;
+  padding: 30px 20px;
+  font-size: 32px;
+  font-weight: 700;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Bottle container */
+.bottle-container {
+  position: relative;
+  margin: 40px auto;
+  width: 250px;
+  height: 400px;
+  perspective: 1000px; /* for depth effects */
+}
+
+.bottle-image {
+  width: 100%;
+  border-radius: 25px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  transition: transform 0.5s;
+}
+
+.bottle-container:hover .bottle-image {
+  transform: rotateY(10deg) rotateX(5deg);
+}
+
+/* Drink name on top */
+.drink-name {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ff3e00;
+  text-shadow: 1px 1px 5px #fff;
+}
+
+/* QR code in center */
+.qr-code {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 5px solid #ff6f61;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Circular Ingredients */
+.ingredients-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  font-weight: bold;
+  color: #d84315;
+}
+
 .ingredients-circle span {
-    transition: transform 0.3s;
+  transition: transform 0.3s, color 0.3s;
 }
 
 .ingredients-circle span:hover {
-    transform: scale(1.2);
-    color: #d84315;
+  transform: scale(1.2);
+  color: #ff5722;
 }
+
 
 

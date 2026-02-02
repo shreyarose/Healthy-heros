@@ -1,22 +1,33 @@
-// Rotate ingredients around QR dynamically
-const ingredients = document.querySelectorAll('.ingredients-circle span');
-let angle = 0;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Healthy Heroes</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-function rotateIngredients() {
-  const radius = 70;
-  const centerX = 90; // half of ingredients-circle width
-  const centerY = 90;
-  ingredients.forEach((span, i) => {
-    const theta = (i / ingredients.length) * 2 * Math.PI + angle;
-    const x = centerX + radius * Math.cos(theta) - span.offsetWidth / 2;
-    const y = centerY + radius * Math.sin(theta) - span.offsetHeight / 2;
-    span.style.position = 'absolute';
-    span.style.left = `${x}px`;
-    span.style.top = `${y}px`;
-  });
-  angle += 0.01;
-  requestAnimationFrame(rotateIngredients);
-}
+<header>
+    <h1>Healthy Heroes 30-Day Challenge</h1>
+</header>
 
-rotateIngredients();
+<div class="container">
+
+  <div class="bottle-container">
+    <div class="drink-name">Healthy Heroes</div>
+    <img src="bottle.png" alt="Bottle" class="bottle-image">
+    <div class="qr-code"></div>
+    <div class="ingredients-circle">
+      <span>Water 💧</span>
+      <span>Electrolytes ⚡</span>
+      <span>Natural Flavors 🌿</span>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
 

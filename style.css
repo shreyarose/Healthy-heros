@@ -1,0 +1,16 @@
+let score = localStorage.getItem("hydroScore") || 0;
+score = parseInt(score);
+document.getElementById("score").textContent = score;
+
+function addPoints(points) {
+  score += points;
+  localStorage.setItem("hydroScore", score);
+  document.getElementById("score").textContent = score;
+}
+
+function resetScore() {
+  score = 0;
+  localStorage.setItem("hydroScore", score);
+  document.getElementById("score").textContent = score;
+}
+
